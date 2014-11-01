@@ -1,0 +1,13 @@
+role_name:
+  ports:
+    - 22:
+      - allow:
+        - office
+        - home
+        - salt.master
+    - 80:
+      - allow: salt.master.private
+    - 443:
+      - allow: all
+      - disallow:
+        - spies
