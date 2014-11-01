@@ -1,4 +1,4 @@
-role_name:
+service_name:
   ports:
     - 22:
       - allow:
