@@ -1,3 +1,4 @@
+import ipaddress
 import os
 import yaml
 
@@ -35,4 +36,18 @@ class Rule(object):
 class Role(object):
     def __init__(self, name, addresses=[]):
         self.name = name
-        self.addresses = addresses
+        self.addresses = [_validate_address(addr) for addr in addresses]
+
+    def _validate_address(self, address):
+        if '/' in address:
+            addr = ipaddress.ip_network(address)
+        else:
+            addr = ipaddress.ip_address(address)
+        return addr
+
+
+    def add_address(self, address):
+        """
+        Pass in addresses or networks individually.
+        """
+        self.addresses.append(_validate_address(addr))
