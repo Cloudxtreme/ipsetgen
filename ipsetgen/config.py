@@ -33,7 +33,6 @@ class Rule(object):
         self.roles = roles
 
 class Role(object):
-    def __init__(self, name, ipv4_addrs=[], ipv6_addrs=[]):
+    def __init__(self, name, addresses=[]):
         self.name = name
-        self.ipv4_addrs = ipv4_addrs
-        self.ipv6_addrs = ipv6_addrs
+        self.addresses = addresses
