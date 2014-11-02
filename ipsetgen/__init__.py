@@ -8,9 +8,20 @@ class IPSet(object):
             self.ipset_cmd = 'ipset'
         else:
             self.ipset_cmd = ipset_cmd
-        _ = subprocess.check_output((ipset_cmd, '-v'))
+        _ = subprocess.check_output((ipset_cmd, '-v'), universal_newlines=True)
 
     def generate_set(self, set_name):
-        _destroy = (self.ipset_cmd, 'destroy', set_name)
+        destroy_set(set_name)
+        _create = (self.ipset_cmd, 'create', set_name, 'hash:ip')
 
-        _ = subprocess.check_output(_destroy)
+    def destroy_set(self, set_name):
+        _destroy = (self.ipset_cmd, 'destroy', set_name)
+        try:
+            p = subprocess.Popen(_destroy, universal_newlines=True, stderr=subprocess.PIPE)
+            out, err = p.communicate()
+        except subprocess.CalledProcessError:
+            if 'The set with the given name does not exist' in err:
+                pass
+            else:
+                raise
+        return True
