@@ -16,12 +16,11 @@ class IPSet(object):
 
     def destroy_set(self, set_name):
         _destroy = (self.ipset_cmd, 'destroy', set_name)
-        try:
-            p = subprocess.Popen(_destroy, universal_newlines=True, stderr=subprocess.PIPE)
-            _, err = p.communicate()
-        except subprocess.CalledProcessError:
-            if 'The set with the given name does not exist' in err:
-                pass
-            else:
-                raise
+        p = subprocess.Popen(_destroy, universal_newlines=True, stderr=subprocess.PIPE)
+        _, err = p.communicate()
+        if 'The set with the given name does not exist' in err:
+            pass
+        else:
+            raise FileNotFoundError(
+                'Error running {}'.format(' '.join(_destroy)))
         return True
