@@ -34,9 +34,9 @@ class Rule(object):
         self.roles = roles
 
 class Role(object):
-    def __init__(self, name, addresses=[]):
+    def __init__(self, name, addrs=[]):
         self.name = name
-        self.addresses = [_validate_address(addr) for addr in addresses]
+        self.addresses = map(_validate_address, addrs)
 
     def _validate_address(self, address):
         if '/' in address:
@@ -44,10 +44,3 @@ class Role(object):
         else:
             addr = ipaddress.ip_address(address)
         return addr
-
-
-    def add_address(self, address):
-        """
-        Pass in addresses or networks individually.
-        """
-        self.addresses.append(_validate_address(addr))
