@@ -1,5 +1,3 @@
-from warnings import warn
-import ipaddress
 import os
 import yaml
 
@@ -35,20 +33,3 @@ class Rule(object):
     def __init__(self, rule, roles):
         self.rule = rule
         self.roles = roles
-
-
-class Role(object):
-    def __init__(self, name, addrs=[]):
-        self.name = name
-        self.addresses = map(self._validate_address, addrs)
-
-    def _validate_address(self, address):
-        try:
-            if '/' in address:
-                addr = ipaddress.ip_network(address)
-            else:
-                addr = ipaddress.ip_address(address)
-        except ValueError:
-            warn('{} is not a valid address or network, ignoring.'.format(
-                address))
-        return addr
