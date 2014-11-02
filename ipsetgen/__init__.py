@@ -18,7 +18,7 @@ class IPSet(object):
         _destroy = (self.ipset_cmd, 'destroy', set_name)
         try:
             p = subprocess.Popen(_destroy, universal_newlines=True, stderr=subprocess.PIPE)
-            out, err = p.communicate()
+            _, err = p.communicate()
         except subprocess.CalledProcessError:
             if 'The set with the given name does not exist' in err:
                 pass
