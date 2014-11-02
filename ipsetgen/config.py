@@ -17,12 +17,6 @@ class Config(object):
         self.configs = _load_all_files(self.config_path)
 
 
-class Service(object):
-    def __init__(self, service, ports=None):
-        self.service = service
-        self.ports = ports
-
-
 class Port(object):
     def __init__(self, port, rules):
         self.port = port
