@@ -1,3 +1,4 @@
+from warnings import warn
 import ipaddress
 import os
 import yaml
@@ -23,24 +24,31 @@ class Service(object):
         self.service = service
         self.ports = ports
 
+
 class Port(object):
     def __init__(self, port, rules):
         self.port = port
         self.rules = rules
+
 
 class Rule(object):
     def __init__(self, rule, roles):
         self.rule = rule
         self.roles = roles
 
+
 class Role(object):
     def __init__(self, name, addrs=[]):
         self.name = name
-        self.addresses = map(_validate_address, addrs)
+        self.addresses = map(self._validate_address, addrs)
 
     def _validate_address(self, address):
-        if '/' in address:
-            addr = ipaddress.ip_network(address)
-        else:
-            addr = ipaddress.ip_address(address)
+        try:
+            if '/' in address:
+                addr = ipaddress.ip_network(address)
+            else:
+                addr = ipaddress.ip_address(address)
+        except ValueError:
+            warn('{} is not a valid address or network, ignoring.'.format(
+                address))
         return addr
