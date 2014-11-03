@@ -15,15 +15,3 @@ class Config(object):
             if os.path.isfile(self.config_path + config_file)
             with open(self.config_path + config_file, 'r') as fh:
                 yield yaml.load(fh)
-
-
-class Port(object):
-    def __init__(self, port, rules):
-        self.port = port
-        self.rules = rules
-
-
-class Rule(object):
-    def __init__(self, rule, roles):
-        self.rule = rule
-        self.roles = roles
