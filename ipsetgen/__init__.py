@@ -14,7 +14,6 @@ class IPSet(object):
                                 stdout=subprocess.DEVNULL)
 
         self.role = role
-        self.services = role.services
 
     def _enumerate_role_addresses(self, role=None):
         if role is None:
