@@ -38,7 +38,10 @@ class IPSet(object):
             sterr=subprocess.STDOUT,
             universal_newlines=True,
             close_fds=True) for addr in self._enumerate_role_addresses()]
-        return [p.wait() for p in ps]
+        ret = [p.wait() for p in ps]
+        print(subprocess.check_output(
+            (self.ipset_cmd, 'list', self.role.name)))
+        return ret
 
     def destroy_set(self, set_name):
         _destroy = (self.ipset_cmd, 'destroy', set_name)
