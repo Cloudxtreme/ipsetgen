@@ -16,8 +16,17 @@ class IPSet(object):
         self.role = role
         self.services = role.services
 
+    def _enumerate_role_addresses(self, role=None):
+        if role is None:
+            _role = self.role
+        else:
+            _role = role
+
+        for service in _role.services:
+            for address in service.addresses:
+                yield address
+
     def generate_set(self, set_name):
-        self.destroy_set(set_name)
         _create = (self.ipset_cmd, 'create', set_name, 'hash:ip')
 
     def destroy_set(self, set_name):
