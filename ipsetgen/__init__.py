@@ -44,13 +44,14 @@ class IPSet(object):
 
     def destroy_set(self, set_name):
         _destroy = (self.ipset_cmd, 'destroy', set_name)
-        p = subprocess.Popen(_destroy,
-                             universal_newlines=True,
-                             stderr=subprocess.PIPE)
-        _, err = p.communicate()
-        if 'The set with the given name does not exist' in err:
-            pass
-        else:
+        try:
+            p = subprocess.Popen(_destroy,
+                                 universal_newlines=True,
+                                 stderr=subprocess.PIPE)
+            _, err = p.communicate()
+            if 'The set with the given name does not exist' in err:
+                pass
+        except FileNotFoundError:
             raise FileNotFoundError(
                 'Error running {}. Is ipset installed?'.format(
                     ' '.join(_destroy)))
