@@ -26,8 +26,15 @@ class IPSet(object):
             for address in service.addresses:
                 yield address
 
-    def generate_set(self, set_name):
-        _create = (self.ipset_cmd, 'create', set_name, 'hash:ip')
+    def generate_set(self):
+        self.destroy_set(self.role.name)
+        subprocess.call((self.ipset_cmd, 'create', self.role.name, 'hash:ip'),
+                        universal_newlines=True)
+
+        for addr in _enumerate_role_addresses():
+            subprocess.call(
+                (self.ipset_cmd, 'add', self.role.name, addr.compressed),
+                universal_newlines=True)
 
     def destroy_set(self, set_name):
         _destroy = (self.ipset_cmd, 'destroy', set_name)
