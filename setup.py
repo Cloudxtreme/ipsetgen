@@ -22,14 +22,16 @@ setup(
     author_email='bsd@voltaire.sh',
     classifiers=[
         'Intended Audience :: Developers',
+        'Intended Audience :: System Administrators',
         'License :: OSI Approved :: BSD License',
-        'Operating System :: OS Independent',
+        'Operating System :: POSIX :: Linux',
         'Programming Language :: Python',
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.2',
         'Programming Language :: Python :: 3.3',
-    ],
-    install_requires=[
-        'pyyaml'
+        'Programming Language :: Python :: 3.4',
+        'Topic :: System :: Clustering',
+        'Topic :: System :: Networking :: Firewalls',
+        'Topic :: System :: Systems Administration',
     ]
 )
