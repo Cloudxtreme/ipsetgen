@@ -1,6 +1,0 @@
-webservers:
-  - services:
-    - ewr0
-    - ewr1
-    - ewr2
-    - ewr3
