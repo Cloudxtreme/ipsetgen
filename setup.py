@@ -15,7 +15,7 @@ setup(
     packages=['ipsetgen'],
     include_package_data=True,
     license='BSD 3-Clause License',
-    description='batmayne signup forms',
+    description='role-based ipset generator',
     long_description=README,
     url='https://github.com/fly/ipsetgen',
     author='Jon Chen',
