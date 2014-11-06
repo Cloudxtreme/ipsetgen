@@ -64,7 +64,7 @@ class Role(object):
 
 
 class Service(object):
-    def __init__(self, name, addrs=[]):
+    def __init__(self, name=None, addrs=[]):
         self.name = name
         self.addresses = map(self._validate_address, addrs)
 
