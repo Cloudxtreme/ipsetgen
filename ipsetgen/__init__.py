@@ -36,8 +36,7 @@ class IPSet(object):
             stdout=subprocess.PIPE,
             sterr=subprocess.STDOUT,
             universal_newlines=True,
-            close_fds=True) for addr in self._enumerate_role_addresses()]
-        [p.wait() for p in ps]
+            close_fds=True).wait() for addr in self._enumerate_role_addresses()]
         print(subprocess.check_output(
             (self.ipset_cmd, 'list', self.role.name)))
 
