@@ -30,15 +30,16 @@ class IPSet(object):
         subprocess.call((self.ipset_cmd, 'create', self.role.name, 'hash:ip'),
                         universal_newlines=True)
 
-        ps = [subprocess.Popen(
+        ps = {addr: subprocess.Popen(
             (self.ipset_cmd, 'add', self.role.name, addr.compressed),
             stdin=subprocess.PIPE,
             stdout=subprocess.PIPE,
             sterr=subprocess.STDOUT,
             universal_newlines=True,
-            close_fds=True).wait() for addr in self._enumerate_role_addresses()]
+            close_fds=True).wait() for addr in self._enumerate_role_address()}
         print(subprocess.check_output(
             (self.ipset_cmd, 'list', self.role.name)))
+        return ps
 
     def destroy_set(self, set_name):
         _destroy = (self.ipset_cmd, 'destroy', set_name)
