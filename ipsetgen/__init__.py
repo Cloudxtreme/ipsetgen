@@ -47,7 +47,7 @@ class IPSet(object):
             p = subprocess.Popen(_destroy,
                                  universal_newlines=True,
                                  stderr=subprocess.PIPE)
-            _, err = p.communicate()
+            p.communicate()
         except FileNotFoundError:
             raise FileNotFoundError(
                 'Error running {}. Is ipset installed?'.format(
