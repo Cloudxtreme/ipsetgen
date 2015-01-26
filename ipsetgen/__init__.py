@@ -48,8 +48,6 @@ class IPSet(object):
                                  universal_newlines=True,
                                  stderr=subprocess.PIPE)
             _, err = p.communicate()
-            if 'The set with the given name does not exist' in err:
-                pass
         except FileNotFoundError:
             raise FileNotFoundError(
                 'Error running {}. Is ipset installed?'.format(
